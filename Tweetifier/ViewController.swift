@@ -10,6 +10,20 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    var backgroundTask: UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
+
+    func registerBackgroundTask() {
+        backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
+            self?.endBackgroundTask()
+        }
+        assert(backgroundTask != UIBackgroundTaskInvalid)
+    }
+    
+    func endBackgroundTask() {
+        print("Background task ended.")
+        UIApplication.shared.endBackgroundTask(backgroundTask)
+        backgroundTask = UIBackgroundTaskInvalid
+    }
 
     var dict: [String: [String : [String]]] = [:]
     var dictForKeywords: [String: [String]] = [:]
@@ -34,6 +48,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        var timer = Timer()
+        
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: Selector("updateLabelWhenTweetIsFound"), userInfo: nil, repeats: true)
     }
 
     override func didReceiveMemoryWarning() {
@@ -97,20 +115,38 @@ class ViewController: UIViewController {
         
         if (!keywordExists(kw: keyword.text!)) {
             addKeyword(kw: keyword.text!, han: handle.text!)
-            tweet = returnTweet()
-            output.text = tweet
+            //tweet = returnTweet()
+            //output.text = tweet
             
-            if (tweet != "Not found") {
-                addTweet(tw: tweet, han: handle.text!, kw: keyword.text!)
-            }
-        } else {
+            //if (tweet != "Not found") {
+                //addTweet(tw: tweet, han: handle.text!, kw: keyword.text!)
+            //}
+        }
+    
+        else {
             output.text = "This keyword is already stored."
         }
         
+    }
+    
+    func updateLabelWhenTweetIsFound() {
+        for (k1, v1) in dict {
+            for (k2, v2) in v1 {
+                let twt = returnTweet(han: k1, kw: k2)
+                if (twt == "Not found") {
+                    break
+                } else {
+                    if (!(dict[k1]?[k2]?.contains(twt))!) {
+                        dict[k1]?[k2]?.append(twt)
+                        output.text = twt
+                        print(dict)
+                    }
+                    
+                }
+            }
+        }
         
-        print(dict)
-        
-        
+        //print("A second has passed")
     }
     
     @IBAction func tweetDelete(_ sender: Any) {
@@ -135,8 +171,8 @@ class ViewController: UIViewController {
     }
     
     
-    func returnTweet() -> String{
-        let myURLString = "https://twitter.com/" + handle.text! + "/with_replies"
+    func returnTweet(han: String, kw: String) -> String{
+        let myURLString = "https://twitter.com/" + han + "/with_replies"
         
         guard let myURL = URL(string: myURLString) else {
             print("Error: \(myURLString) doesn't seem to be a valid URL")
@@ -168,7 +204,7 @@ class ViewController: UIViewController {
             
             result = found.replacingOccurrences(of: subtractFound, with: "")
             
-            if (result.lowercased().range(of: (keyword.text?.lowercased())!) != nil) {
+            if (result.lowercased().range(of: (kw.lowercased())) != nil) {
                 return result
                 //addTweet(tw: result, han: handle.text!)
             }

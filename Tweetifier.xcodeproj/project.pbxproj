@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F22042F51E217D2200DB198F /* FetchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22042F41E217D2200DB198F /* FetchViewController.swift */; };
 		F26EAE391E20774800350C0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EAE381E20774800350C0A /* AppDelegate.swift */; };
 		F26EAE3B1E20774800350C0A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EAE3A1E20774800350C0A /* ViewController.swift */; };
 		F26EAE3E1E20774800350C0A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F26EAE3C1E20774800350C0A /* Main.storyboard */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F22042F41E217D2200DB198F /* FetchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FetchViewController.swift; path = ../../../../Downloads/starter/TheBackgrounder/FetchViewController.swift; sourceTree = "<group>"; };
 		F26EAE351E20774800350C0A /* Tweetifier.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tweetifier.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F26EAE381E20774800350C0A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F26EAE3A1E20774800350C0A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -56,6 +58,7 @@
 		F26EAE371E20774800350C0A /* Tweetifier */ = {
 			isa = PBXGroup;
 			children = (
+				F22042F41E217D2200DB198F /* FetchViewController.swift */,
 				F26EAE381E20774800350C0A /* AppDelegate.swift */,
 				F26EAE3A1E20774800350C0A /* ViewController.swift */,
 				F26EAE3C1E20774800350C0A /* Main.storyboard */,
@@ -101,6 +104,11 @@
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 256R6DLQ95;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -141,6 +149,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F26EAE3B1E20774800350C0A /* ViewController.swift in Sources */,
+				F22042F51E217D2200DB198F /* FetchViewController.swift in Sources */,
 				F26EAE391E20774800350C0A /* AppDelegate.swift in Sources */,
 				F26EAE4E1E20F24100350C0A /* CoreDataModel.xcdatamodeld in Sources */,
 			);
@@ -268,6 +277,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 256R6DLQ95;
 				INFOPLIST_FILE = Tweetifier/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = placeholder.Tweetifier;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -282,6 +292,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 256R6DLQ95;
 				INFOPLIST_FILE = Tweetifier/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = placeholder.Tweetifier;
 				PRODUCT_NAME = "$(TARGET_NAME)";
