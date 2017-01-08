@@ -122,9 +122,21 @@
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
-                                    <barButtonItem title="Manage Found Tweets" id="I3h-Xc-xaL"/>
+                                    <barButtonItem title="Manage Found Tweets" id="I3h-Xc-xaL">
+                                        <connections>
+                                            <segue destination="NNG-M7-YhL" kind="show" id="XgM-Cr-Ocz"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zIy-qP-q0C">
+                                <rect key="frame" x="41" y="474" width="287" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Print Dictionary to Screen (for debugging)"/>
+                                <connections>
+                                    <action selector="printDictToConsole:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BYF-Ha-HrE"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -140,6 +152,56 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="96.799999999999997" y="123.68815592203899"/>
+        </scene>
+        <!--Tweets View Controller-->
+        <scene sceneID="PAQ-xV-2cR">
+            <objects>
+                <viewController id="NNG-M7-YhL" customClass="TweetsViewController" customModule="Tweetifier" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hS8-5B-Fbv"/>
+                        <viewControllerLayoutGuide type="bottom" id="1gK-Is-Sm8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="LBo-af-TKz">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EhL-K2-J9y">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="4MW-Is-00I">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4MW-Is-00I" id="fuD-07-exF">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="NNG-M7-YhL" id="bsl-A1-o8L"/>
+                                    <outlet property="delegate" destination="NNG-M7-YhL" id="iyp-gP-Dil"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="EhL-K2-J9y" secondAttribute="trailing" id="DDn-Jy-ZeW"/>
+                            <constraint firstItem="1gK-Is-Sm8" firstAttribute="top" secondItem="EhL-K2-J9y" secondAttribute="bottom" id="PJj-6W-H20"/>
+                            <constraint firstAttribute="trailing" secondItem="EhL-K2-J9y" secondAttribute="trailing" id="TFH-Gm-Lsh"/>
+                            <constraint firstItem="EhL-K2-J9y" firstAttribute="top" secondItem="LBo-af-TKz" secondAttribute="top" id="W5N-Qs-WNj"/>
+                            <constraint firstItem="1gK-Is-Sm8" firstAttribute="top" secondItem="EhL-K2-J9y" secondAttribute="bottom" id="btp-tc-3KT"/>
+                            <constraint firstItem="EhL-K2-J9y" firstAttribute="leading" secondItem="LBo-af-TKz" secondAttribute="leading" id="ezw-Ea-NGX"/>
+                            <constraint firstItem="1gK-Is-Sm8" firstAttribute="top" secondItem="EhL-K2-J9y" secondAttribute="bottom" id="rTh-dh-VGo"/>
+                            <constraint firstItem="EhL-K2-J9y" firstAttribute="leading" secondItem="LBo-af-TKz" secondAttribute="leading" id="vu2-xU-aev"/>
+                            <constraint firstItem="EhL-K2-J9y" firstAttribute="leading" secondItem="LBo-af-TKz" secondAttribute="leading" id="y6c-c1-aES"/>
+                            <constraint firstAttribute="trailing" secondItem="EhL-K2-J9y" secondAttribute="trailing" id="zZK-tN-Htc"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jZV-XM-7eQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="784.5" y="122.5"/>
         </scene>
     </scenes>
 </document>

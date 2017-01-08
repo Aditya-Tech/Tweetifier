@@ -10,8 +10,15 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var backgroundTask: UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
+    let defaults = UserDefaults.standard
+    
+    var timer = Timer()
+    //var timer2 = Timer()
 
+
+    /*
+    var backgroundTask: UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
+    
     func registerBackgroundTask() {
         backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
             self?.endBackgroundTask()
@@ -24,17 +31,9 @@ class ViewController: UIViewController {
         UIApplication.shared.endBackgroundTask(backgroundTask)
         backgroundTask = UIBackgroundTaskInvalid
     }
+    */
 
     var dict: [String: [String : [String]]] = [:]
-    var dictForKeywords: [String: [String]] = [:]
-    var dictForTweets: [String: [String]] = [:]
-    
-    func save() {
-        
-        let userDefaults = UserDefaults.standard
-        userDefaults.set(dictForKeywords, forKey: "kewo")
-        userDefaults.set(dictForTweets, forKey: "twts")
-    }
     
     @IBOutlet weak var handle: UITextField!
     @IBOutlet weak var keyword: UITextField!
@@ -49,16 +48,54 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        var timer = Timer()
+        /* example permanent storage setup
+
+        // for Strings //
+         
+        //UserDefaults.standard.set("Aditya", forKey: "name")
         
+        let nameObject = UserDefaults.standard.object(forKey: "name")
+        
+        if let name = nameObject as? String {
+            print(name)
+        }
+        
+        // for arrays //
+        
+        //let arr = [1, 2, 3, 4]
+        
+        //UserDefaults.standard.set(arr, forKey:"array")
+        
+        
+        let arrayObject = UserDefaults.standard.object(forKey: "array")
+        
+        if let array = arrayObject as? NSArray {
+            print(array)
+        }
+        
+        */
+      
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: Selector("updateLabelWhenTweetIsFound"), userInfo: nil, repeats: true)
+        
     }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    func setDict(dict: [String : [String : [String]]]) {
+        defaults.set(dict, forKey: "diction")
+    }
+    
+    func getDict() -> [String : [String : [String]]] {
+        if let temp = defaults.object(forKey: "diction") as? [String : [String : [String]]] {
+            return temp
+        }
+        
+        return dict
+    }
     
     func tweetExists(tw: String) -> Bool {
         if (dict[handle.text!] != nil) {
@@ -106,8 +143,48 @@ class ViewController: UIViewController {
     
     
     @IBAction func createNotification(_ sender: Any) {
+        dict = getDict()
+       /*
         
-        var tweet = ""
+        let userObjects = UserDefaults.standard.object(forKey: "items1")
+        
+        
+        var items: [String : [String : [String]]] = [:]
+        
+        if let tempItems = dict as? [String : [String : [String]]] {
+            
+            items = tempItems
+            tweet = returnTweet(han: handle.text!, kw: keyword.text!)
+            
+            if !handleExists() {
+                items[handle.text!] = [:]
+            }
+            
+            if !keywordExists(kw: keyword.text!) {
+                items[handle.text!]?[keyword.text!] = []
+                if (tweet != "Not found") {
+                    items[handle.text!]?[keyword.text!]?.append(tweet)
+                }
+                
+            }
+            
+        } else {
+
+            items[handle.text!]?[keyword.text!]?.append(tweet)
+        }
+        
+    
+        UserDefaults.standard.set(items, forKey: "items")
+        
+        handle.text = ""
+        keyword.text = ""
+        
+        print(dict!)
+        */
+        
+        
+        //var tweet = ""
+        
         
         if (!handleExists()) {
             addHandle(han: handle.text!)
@@ -127,9 +204,11 @@ class ViewController: UIViewController {
             output.text = "This keyword is already stored."
         }
         
+        setDict(dict: dict)
     }
     
     func updateLabelWhenTweetIsFound() {
+        dict = getDict()
         for (k1, v1) in dict {
             for (k2, v2) in v1 {
                 let twt = returnTweet(han: k1, kw: k2)
@@ -139,13 +218,14 @@ class ViewController: UIViewController {
                     if (!(dict[k1]?[k2]?.contains(twt))!) {
                         dict[k1]?[k2]?.append(twt)
                         output.text = twt
-                        print(dict)
+                        //print(dict)
                     }
                     
                 }
             }
         }
         
+        setDict(dict: dict)
         //print("A second has passed")
     }
     
@@ -153,21 +233,25 @@ class ViewController: UIViewController {
         let temp = dict[deleteHandle.text!]?[deleteKeyword.text!]!.filter {$0 != deleteTweet.text}
         dict[deleteHandle.text!]?[deleteKeyword.text!] = temp
         
-        print(dict)
+        setDict(dict: dict)
+    }
+    
+    func updateDict() {
+        setDict(dict: dict)
     }
     
     
     @IBAction func keywordDelete(_ sender: Any) {
         dict[handle.text!]?[keyword.text!] = nil
         
-        print(dict)
+        setDict(dict: dict)
     }
    
     
     @IBAction func handleDelete(_ sender: Any) {
         dict[deleteHandle.text!] = nil
         
-        print(dict)
+        setDict(dict: dict)
     }
     
     
@@ -217,6 +301,9 @@ class ViewController: UIViewController {
 
     }
     
+    @IBAction func printDictToConsole(_ sender: Any) {
+        print(getDict())
+    }
 
 }
 
