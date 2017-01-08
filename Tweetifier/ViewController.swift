@@ -236,9 +236,11 @@ class ViewController: UIViewController {
         setDict(dict: dict)
     }
     
+    /*
     func updateDict() {
         setDict(dict: dict)
     }
+    */
     
     
     @IBAction func keywordDelete(_ sender: Any) {
@@ -250,7 +252,6 @@ class ViewController: UIViewController {
     
     @IBAction func handleDelete(_ sender: Any) {
         dict[deleteHandle.text!] = nil
-        
         setDict(dict: dict)
     }
     

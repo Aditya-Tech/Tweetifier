@@ -10,11 +10,13 @@ import UIKit
 
 class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    var items: [String : [String : [String]]] = [:]
+    var handles: [String] = []
     
     @available(iOS 2.0, *)
     internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 1
+        return handles.count
     }
     
     
@@ -25,8 +27,17 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "Cell")
+        /*
+        var cellLabel = ""
         
-        cell.textLabel?.text = "Top row"
+        if let tempLabel = handles[indexPath.count] as? String {
+            cellLabel = tempLabel
+        }
+        
+        cell.textLabel?.text = cellLabel
+        */
+        
+        cell.textLabel?.text = handles[indexPath.item] as? String
         
         return cell
     }
@@ -34,10 +45,20 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        
         // Do any additional setup after loading the view.
 
+        let itemsObject = UserDefaults.standard.object(forKey: "diction")
         
+        if let tempItems = itemsObject as? [String : [String : [String]]] {
+            items = tempItems
+        }
+        
+        for (k, v) in items {
+            handles.append(k)
+            print(handles)
+        }
     }
 
     override func didReceiveMemoryWarning() {
