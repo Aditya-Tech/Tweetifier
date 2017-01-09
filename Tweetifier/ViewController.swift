@@ -213,7 +213,7 @@ class ViewController: UIViewController {
             for (k2, v2) in v1 {
                 let twt = returnTweet(han: k1, kw: k2)
                 if (twt == "Not found") {
-                    break
+                    continue
                 } else {
                     if (!(dict[k1]?[k2]?.contains(twt))!) {
                         dict[k1]?[k2]?.append(twt)
