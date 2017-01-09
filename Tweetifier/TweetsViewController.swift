@@ -8,29 +8,29 @@
 
 import UIKit
 
+var selectedCategoryId: Int = -1
+var items: [String : [String : [String]]] = [:]
+var handles: [String] = []
+var keywords: [[String]] = [[]]
+var tweets: [[String]] = [[]]
+
+let itemsObject = UserDefaults.standard.object(forKey: "diction")
+
+
 class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     
     
-    
     @IBOutlet weak var handlesTable: UITableView!
-    var items: [String : [String : [String]]] = [:]
-    var handles: [String] = []
-    var keywords: [[String]] = [[]]
-    var tweets: [[String]] = [[]]
     
-    struct tableObjects{
-        var handleObjs = [String]()
-        var keyObjs = [[String]]()
-    }
-    
-    var objectArr = [tableObjects]()
     
     @available(iOS 2.0, *)
     internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return handles.count
+        
     }
+
     
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
@@ -62,14 +62,11 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @available(iOS 2.0, *)
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "Cell")
-        
-        //var cell = tableView.dequeueReusableCell(withIdentifier: "Cell")
-        
-        
+        let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "Cell") as UITableViewCell!
+   
         
         /*
-         NOT NEEDED
+         NOT NEEDED FOR NOW
         var cellLabel = ""
         
         if let tempLabel = handles[indexPath.count] as? String {
@@ -79,9 +76,9 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cell.textLabel?.text = cellLabel
         */
         
-        cell.textLabel?.text = handles[indexPath.item] as? String
+        cell?.textLabel?.text = handles[indexPath.item] as? String
         
-        return cell
+        return cell!
     }
 
 
@@ -90,16 +87,16 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         
         // Do any additional setup after loading the view.
-
-        let itemsObject = UserDefaults.standard.object(forKey: "diction")
         
         if let tempItems = itemsObject as? [String : [String : [String]]] {
             items = tempItems
         }
+
+        
         
         for (k, v) in items {
             handles.append(k)
-            print(handles)
+            //print(handles)
             
             var kArr = [String]()
             
@@ -110,9 +107,12 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             keywords.append(kArr)
         }
         
-        keywords.dropFirst()
+        keywords.remove(at: 0)
         
-        objectArr = [tableObjects(handleObjs: handles, keyObjs: keywords)]
+        //keywords.dropFirst()
+        //print(keywords)
+        //print(items)
+        
         
     }
 
@@ -131,5 +131,46 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        
+        selectedCategoryId = indexPath.row
+        /*
+        
+        tableView.deselectRow(at: indexPath as IndexPath, animated: true)
+        
+        let row = indexPath.row
+        print("Row: \(row)")
+        
+        print(handles[row])
+        
+        let kvc = self.storyboard?.instantiateViewController(withIdentifier: "kwVC") as! TweetsKeywordTableViewController
+        
+        self.navigationController?.pushViewController(kvc, animated: true) */
+        
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        
+        /*
+        let destination = storyboard.instantiateViewController(withIdentifier: "kwVC") as! TweetsKeywordTableViewController
+        navigationController?.pushViewController(destination, animated: true)
+        */
+        
+        let nextViewController = storyboard.instantiateViewController(withIdentifier: "kwVC") as! TweetsKeywordTableViewController
+        self.present(nextViewController, animated:true, completion:nil)
+
+    }
+
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let vc = segue.destination as! TweetsKeywordTableViewController
+        
+        vc.row = selectedCategoryId
+   
+    }
+    
+
+   
 
 }

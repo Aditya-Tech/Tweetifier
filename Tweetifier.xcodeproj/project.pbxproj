@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F21F96601E23436C0025BA06 /* TweetsKeywordTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21F965F1E23436C0025BA06 /* TweetsKeywordTableViewController.swift */; };
 		F22042F51E217D2200DB198F /* FetchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22042F41E217D2200DB198F /* FetchViewController.swift */; };
 		F22042F81E21EE5C00DB198F /* TweetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22042F71E21EE5C00DB198F /* TweetsViewController.swift */; };
 		F26EAE391E20774800350C0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EAE381E20774800350C0A /* AppDelegate.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F21F965F1E23436C0025BA06 /* TweetsKeywordTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetsKeywordTableViewController.swift; sourceTree = "<group>"; };
 		F22042F41E217D2200DB198F /* FetchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FetchViewController.swift; path = ../../../../Downloads/starter/TheBackgrounder/FetchViewController.swift; sourceTree = "<group>"; };
 		F22042F71E21EE5C00DB198F /* TweetsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetsViewController.swift; sourceTree = "<group>"; };
 		F26EAE351E20774800350C0A /* Tweetifier.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tweetifier.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -69,6 +71,7 @@
 				F26EAE3F1E20774800350C0A /* Assets.xcassets */,
 				F26EAE411E20774800350C0A /* LaunchScreen.storyboard */,
 				F26EAE441E20774800350C0A /* Info.plist */,
+				F21F965F1E23436C0025BA06 /* TweetsKeywordTableViewController.swift */,
 			);
 			path = Tweetifier;
 			sourceTree = "<group>";
@@ -156,6 +159,7 @@
 				F22042F51E217D2200DB198F /* FetchViewController.swift in Sources */,
 				F26EAE391E20774800350C0A /* AppDelegate.swift in Sources */,
 				F26EAE4E1E20F24100350C0A /* CoreDataModel.xcdatamodeld in Sources */,
+				F21F96601E23436C0025BA06 /* TweetsKeywordTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
