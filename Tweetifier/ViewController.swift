@@ -305,6 +305,11 @@ class ViewController: UIViewController {
     @IBAction func printDictToConsole(_ sender: Any) {
         print(getDict())
     }
+    
+    func collapseKeyboard(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
 
 }
 
